@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import {getPatientData,getPatientConditions} from './utils'
+import { PatientTable} from './Userdata'
+import Loader from 'react-loader-spinner'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+   componentWillMount(){
+    this.state = {
+      conditions: [],
+      patient:{},
+      loading:true
+
+    }
+    
+ getPatientData(`1316024
+ `).then(data => this.setState({patient:data}))    
+ getPatientConditions('1316024','Condition').then(data => this.setState({conditions:data,loading:false},()=>console.log('DOne')) )
+   }
+
+  render() {
+    console.log(this.state.conditions)
+    
+    return (
+    <>
+    {this.state.conditions.length === 0? 
+    <div style={{
+      position: 'absolute',
+      top: '40%',
+      left: '40%'}}>
+        <Loader
+         type="Circles"
+         color="#2f4c6e"
+         height={200}
+         width={200}
+         timeout={10000} //3 secs
+
+      />
+      </div>
+      
+       :
+      
+      <PatientTable 
+      name={` Name: ${this.state.patient.name}`}
+      gender={`Gender: ${this.state.patient.gender}`}
+      dob={`DOB: ${this.state.patient.dob}`}
+      c={this.state.conditions}
+      
+      
+      />
+     
+      
+ }
+     
+     </>
+     )
+    
+  }
 }
-
-export default App;

@@ -1,0 +1,28 @@
+
+h1,h2,h3,h4,td{
+    font-family: 'Abel', sans-serif;
+    text-transform: uppercase;
+  }
+
+
+thead{
+    background:#466180;
+    color:wheat;
+}
+  .MaterialDatatableHeadCell-data-611 {
+      font-family: 'Abel', sans-serif;
+      text-transform: uppercase;
+      color:white;
+  }
+
+  path{
+      color:gray;
+  }
+
+  .MaterialDatatableHeadCell-sortActive-613 {
+    /* color: rgba(0, 0, 0, 0.87); */
+    color: wheat;
+}
+.MaterialDatatableHeadCell-data-151{
+    color:white
+}

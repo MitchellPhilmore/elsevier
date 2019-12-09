@@ -17,6 +17,8 @@ export const getPatientData = async (patientID)=>{
 
 export  const getPatientConditions = async (id,resourceType)=>{
     const response = await axios.get(` https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/${resourceType}?patient=${id}&status=active`)
+    .catch(err=>console.log(err.response.statusText))
+    
     const conditions = response.data.entry.map((condition)=>{
       const results = {
         name:condition.resource.code.text,

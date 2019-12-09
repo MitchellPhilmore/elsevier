@@ -8,25 +8,22 @@ export default class App extends Component {
     this.state = {
       conditions: [],
       patient:{},
-      loading:true
 
-    }
-    
- getPatientData(`1316024
- `).then(data => this.setState({patient:data}))    
- getPatientConditions('1316024','Condition').then(data => this.setState({conditions:data,loading:false},()=>console.log('Done')) )
+    }   
+ getPatientData(`1316024`).then(data => this.setState({patient:data}))    
+ getPatientConditions('1316024','Condition').then(data => this.setState({conditions:data}))
    }
 
   render() {
-    console.log(this.state.conditions)
+    const center = {
+      position: 'absolute',
+      top: '40%',
+      left: '40%'}
     
     return (
     <>
-    {this.state.conditions.length === 0? 
-    <div style={{
-      position: 'absolute',
-      top: '40%',
-      left: '40%'}}>
+    {this.state.conditions.length === 0 ? 
+    <div style={center}>
         <Loader
          type="Circles"
          color="#2f4c6e"
@@ -47,11 +44,9 @@ export default class App extends Component {
       
       
       />
-     
-      
+         
  }
-     
-     </>
+       </>
      )
     
   }

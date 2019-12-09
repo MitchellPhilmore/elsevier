@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {getPatientData,getPatientConditions} from './utils'
-import { PatientTable} from './Userdata'
+import { PatientTable} from './PatientTable'
 import Loader from 'react-loader-spinner'
 
 export default class App extends Component {
@@ -14,7 +14,7 @@ export default class App extends Component {
     
  getPatientData(`1316024
  `).then(data => this.setState({patient:data}))    
- getPatientConditions('1316024','Condition').then(data => this.setState({conditions:data,loading:false},()=>console.log('DOne')) )
+ getPatientConditions('1316024','Condition').then(data => this.setState({conditions:data,loading:false},()=>console.log('Done')) )
    }
 
   render() {
@@ -43,7 +43,7 @@ export default class App extends Component {
       name={` Name: ${this.state.patient.name}`}
       gender={`Gender: ${this.state.patient.gender}`}
       dob={`DOB: ${this.state.patient.dob}`}
-      c={this.state.conditions}
+      conditions={this.state.conditions}
       
       
       />

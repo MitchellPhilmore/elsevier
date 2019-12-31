@@ -3,10 +3,11 @@ import React from 'react'
 import Loader from 'react-loader-spinner'
 
 export const getPatientData = async (patientID)=>{
+  try{
     const response = await axios.get(
       `  https://fhir-open.sandboxcerner.com/dstu2/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/Patient/${patientID}`
     )
-    .catch(err=>console.log(err.response.statusText))
+  
 
     const name = response.data.name[0].text
     const gender = response.data.gender
@@ -14,6 +15,12 @@ export const getPatientData = async (patientID)=>{
     const result = { name,gender,dob}
 
   return result
+
+  }
+  catch(error){
+    console.log(error.response.statusText)
+  }
+    
 }
 
 export  const getPatientConditions = async (id,resourceType)=>{

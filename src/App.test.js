@@ -1,9 +1,15 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import {add,isString} from './add'
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+
+test('add', ()=>{
+    const value = add(1,2)
+    expect(value).toBe(3)
+})
+
+test('isStr',()=>{
+    const isStr= isString('3')
+    const notStr = isString(3) 
+    expect(notStr).toBe(false)
+    expect(isStr).toBe(true)
+})
+

@@ -1,53 +1,34 @@
-import React, { Component } from 'react'
-import {getPatientData,getPatientConditions} from './utils'
+import React, { useEffect,useState } from 'react'
+import {getPatientData,getPatientConditions,showLoader} from './utils'
 import { PatientTable} from './PatientTable'
-import Loader from 'react-loader-spinner'
+import './App.css'
 
-export default class App extends Component {
-   componentWillMount(){
-    this.state = {
-      conditions: [],
-      patient:{},
-
-    }   
- getPatientData(`1316024`).then(data => this.setState({patient:data}))    
- getPatientConditions('1316024','Condition').then(data => this.setState({conditions:data}))
-   }
-
-  render() {
-    const center = {
-      position: 'absolute',
-      top: '40%',
-      left: '40%'}
-    
+ const App = () =>{
+    const [conditions,setConditions] = useState([])
+    const [patient,setPatient] = useState({});
+  // ** Before the component renders make API request to get all the relevant patient data and initialize state
+    useEffect(async()=>{
+      try{
+        setPatient(await getPatientData(`1316024`))  
+        setConditions(await getPatientConditions(`1316024`,`Condition`))
+        
+     }catch(error){ throw error}
+    },[])
+    const {name,gender,dob} = patient
     return (
+      // **  If the conditions array is empty display loader otherwise show the patient table
     <>
-    {this.state.conditions.length === 0 ? 
-    <div style={center}>
-        <Loader
-         type="Circles"
-         color="#2f4c6e"
-         height={200}
-         width={200}
-         timeout={10000} //3 secs
+      { 
+        conditions.length === 0 ? showLoader() :
+        
+        <PatientTable 
+        name={` Name: ${name}`}
+        gender={`Gender: ${gender}`}
+        dob={`DOB: ${dob}`}
+        conditions={conditions} />
 
-      />
-      </div>
-      
-       :
-      
-      <PatientTable 
-      name={` Name: ${this.state.patient.name}`}
-      gender={`Gender: ${this.state.patient.gender}`}
-      dob={`DOB: ${this.state.patient.dob}`}
-      conditions={this.state.conditions}
-      
-      
-      />
-         
- }
-       </>
-     )
-    
-  }
-}
+      }
+   </>
+   )}
+
+  export default App

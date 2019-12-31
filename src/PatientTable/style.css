@@ -2,7 +2,13 @@
 h1,h2,h3,h4,td{
     font-family: 'Abel', sans-serif;
     text-transform: uppercase;
+    background:linear-gradient(#957d74,black);
+    background-clip: text;
+    color: transparent;
+  
+
   }
+
 
 
 thead{

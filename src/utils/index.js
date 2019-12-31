@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+import Loader from 'react-loader-spinner'
 
 export const getPatientData = async (patientID)=>{
     const response = await axios.get(
@@ -29,5 +30,22 @@ export  const getPatientConditions = async (id,resourceType)=>{
         return results  
   })
   return conditions
+   
+  }
+
+  export const showLoader = () =>{
+      return(
+        <div className="center">
+        <Loader
+        type="Circles"
+        color="#2f4c6e"
+        height={200}
+        width={200}
+        timeout={10000} 
+
+      />
+    </div>
+        
+      )
    
   }
